@@ -1,0 +1,46 @@
+CREATE TABLE develhopedudatest.Dipendenti (
+	ID_Dipendenti int auto_increment NOT NULL,
+	Nome varchar(100) NOT NULL,
+	Cognome varchar(100) NOT NULL,
+	Stipendio DOUBLE NULL,
+	Reparto varchar(100) NULL,
+	CONSTRAINT Dipendenti_pk PRIMARY KEY (ID_Dipendenti)
+)
+ENGINE=InnoDB
+DEFAULT CHARSET=utf8mb4
+COLLATE=utf8mb4_general_ci
+AUTO_INCREMENT=1;
+CREATE INDEX Dipendenti_ID_Dipendenti_IDX USING BTREE ON develhopedudatest.Dipendenti (ID_Dipendenti);
+
+
+CREATE TABLE develhopedudatest.progetti (
+	ID_Progetti int auto_increment NOT NULL,
+	Nome varchar(100) NOT NULL,
+	CONSTRAINT progetti_pk PRIMARY KEY (ID_Progetti)
+)
+ENGINE=InnoDB
+DEFAULT CHARSET=utf8mb4
+COLLATE=utf8mb4_general_ci
+AUTO_INCREMENT=1;
+CREATE INDEX progetti_ID_Progetti_IDX USING BTREE ON develhopedudatest.progetti (ID_Progetti);
+
+
+insert into dipendenti (Nome, Cognome, Stipendio, Reparto) 
+VALUES ('Mario', 'Rossi', 50000.00, 'Amministrazione'),
+       ('Anna', 'Verdi', 60000.00, 'Vendite'),
+       ('Giuseppe', 'Bianchi', 70000.00, 'Management');
+      
+ 
+insert into Progetti (Nome)       
+VALUES ('Progetto grandissimo'),
+       ('Progettino piccolo');
+      
+      
+ALTER TABLE develhopedudatest.dipendenti ADD ID_Progetti INT NULL;
+      
+update dipendenti set ID_Progetti = 1 where Nome = "Mario";   
+update dipendenti set ID_Progetti = 2 where Nome = "Anna" or Nome="Giuseppe";
+
+ALTER TABLE develhopedudatest.dipendenti ADD CONSTRAINT dipendenti_FK FOREIGN KEY (ID_Progetti) REFERENCES develhopedudatest.progetti(ID_Progetti);
+
+      

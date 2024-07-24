@@ -1,0 +1,55 @@
+create table develhopedudatest.Dipendenti (
+	ID_Dipendenti int auto_increment not null,
+	nome varchar(100) not null,
+	cognome varchar(100) not null,
+	stipendio DOUBLE null,
+	reparto varchar(100) null,
+	constraint Dipendenti_pk primary key (ID_Dipendenti)
+)
+engine = InnoDB
+default CHARSET = utf8mb4
+collate = utf8mb4_general_ci
+auto_increment = 1;
+
+create index Dipendenti_ID_Dipendenti_IDX
+	using BTREE on
+develhopedudatest.Dipendenti (ID_Dipendenti);
+
+create table develhopedudatest.progetti (
+	ID_Progetti int auto_increment not null,
+	Nome varchar(100) not null,
+	constraint progetti_pk primary key (ID_Progetti)
+)
+engine = InnoDB
+default CHARSET = utf8mb4
+collate = utf8mb4_general_ci
+auto_increment = 1;
+
+create index progetti_ID_Progetti_IDX
+	using BTREE on
+develhopedudatest.progetti (ID_Progetti);
+
+insert	into	dipendenti (Nome,Cognome,	Stipendio,	Reparto)
+values ('Mario','Rossi',50000.00,'Amministrazione'),
+       ('Anna','Verdi',60000.00,'Vendite'),
+       ('Giuseppe','Bianchi',70000.00,'Management');
+
+insert	into Progetti (Nome)
+values ('Progetto grandissimo'),
+       ('Progettino piccolo');
+
+alter table develhopedudatest.dipendenti add ID_Progetti INT null;
+
+update	dipendenti set	ID_Progetti = 1 where	Nome = "Mario";
+update	dipendenti set	ID_Progetti = 2 where	Nome = "Anna" or Nome = "Giuseppe";
+
+alter table develhopedudatest.dipendenti add constraint dipendenti_FK foreign key (ID_Progetti) references develhopedudatest.progetti(ID_Progetti);
+
+select	Dipendenti.ID_Dipendenti ,	Dipendenti.Nome ,	Dipendenti.Cognome ,	Dipendenti.Stipendio,	Dipendenti.ID_Dipendenti ,	progetti.Nome
+from	Dipendenti
+left join progetti
+on	Dipendenti.ID_Progetti = progetti.ID_Progetti;
+
+select	dipendenti.ID_Dipendenti ,	dipendenti.nome,	progetti.Nome
+from	dipendenti,	progetti
+where	dipendenti.ID_Progetti = progetti.ID_Progetti ;

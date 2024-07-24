@@ -1,0 +1,12 @@
+-- develhopedudatest.dipendenti definition
+
+CREATE TABLE `dipendenti` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Nome` varchar(100) NOT NULL,
+  `Cognome` varchar(100) NOT NULL,
+  `Stipendio` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `Dipendenti_ID_IDX` (`ID`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+ALTER TABLE develhopedudatest.dipendenti ADD Reparto varchar(100) NULL;

@@ -1,0 +1,41 @@
+-- develhopedudatest.dipendenti definition
+
+CREATE TABLE `dipendenti` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Nome` varchar(100) NOT NULL,
+  `Cognome` varchar(100) DEFAULT NULL,
+  `Stipendio` varchar(100) DEFAULT NULL,
+  `Reparto` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `Dipendenti_ID_IDX` (`ID`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+insert into dipendenti (Nome, Cognome, Stipendio, Reparto) 
+VALUES ('Mario', 'Rossi', 50000.00, 'Amministrazione'),
+       ('Anna', 'Verdi', 60000.00, 'Vendite'),
+       ('Giuseppe', 'Bianchi', 70000.00, 'Management');
+      
+
+
+
+-- develhopedudatest.progetti definition
+
+CREATE TABLE `progetti` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Nome` varchar(100) NOT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `progetti_ID_IDX` (`ID`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+insert into Progetti (Nome)       
+VALUES ('Progetto grandissimo'),
+       ('Progettino piccolo');
+       
+      
+ALTER TABLE develhopedudatest.dipendenti ADD ID_Progetti INT NULL;
+
+
+update dipendenti set ID_Progetti = 1 where Nome = "Mario";   
+update dipendenti set ID_Progetti = 2 where Nome = "Anna" or Nome="Giuseppe";  

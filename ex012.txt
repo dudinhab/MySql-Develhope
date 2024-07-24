@@ -1,0 +1,67 @@
+
+truncate table progettididipendenti  
+
+CREATE TABLE develhopedudatest.Dipendenti (
+	ID_Dipendenti int auto_increment NOT NULL,
+	nome varchar(100) NOT NULL,
+	cognome varchar(100) NOT NULL,
+	stipendio DOUBLE NULL,
+	reparto varchar(100) NULL,
+	CONSTRAINT Dipendenti_pk PRIMARY KEY (ID_Dipendenti)
+)
+ENGINE=InnoDB
+DEFAULT CHARSET=utf8mb4
+COLLATE=utf8mb4_general_ci
+AUTO_INCREMENT=1;
+CREATE INDEX Dipendenti_ID_Dipendenti_IDX USING BTREE ON develhopedudatest.Dipendenti (ID_Dipendenti);
+
+
+CREATE TABLE develhopedudatest.progetti (
+	ID_Progetti int auto_increment NOT NULL,
+	nome varchar(100) NOT NULL,
+	CONSTRAINT Progetti_pk PRIMARY KEY (ID_Progetti)
+)
+ENGINE=InnoDB
+DEFAULT CHARSET=utf8mb4
+COLLATE=utf8mb4_general_ci
+AUTO_INCREMENT=1;
+CREATE INDEX Progetti_ID_Progetti_IDX USING BTREE ON develhopedudatest.progetti (ID_Progetti);
+
+
+CREATE TABLE develhopedudatest.ProgettiDiDipendenti (
+	ID_ProgettiDiDipendenti int auto_increment NOT NULL,
+	ID_Dipendenti int NOT NULL,
+	ID_Progetti int NOT NULL,
+	CONSTRAINT ProgettiDiDipendenti_pk PRIMARY KEY (ID_ProgettiDiDipendenti),
+	CONSTRAINT ProgettiDiDipendenti_FK FOREIGN KEY (ID_Dipendenti) REFERENCES develhopedudatest.dipendenti(ID_Dipendenti),
+	CONSTRAINT ProgettiDiDipendenti_FK_1 FOREIGN KEY (ID_Progetti) REFERENCES develhopedudatest.progetti(ID_Progetti)
+)
+ENGINE=InnoDB
+DEFAULT CHARSET=utf8mb4
+COLLATE=utf8mb4_general_ci
+AUTO_INCREMENT=1;
+CREATE INDEX ProgettiDiDipendenti_ID_ProgettiDiDipendenti_IDX USING BTREE ON develhopedudatest.ProgettiDiDipendenti (ID_ProgettiDiDipendenti);
+
+insert into dipendenti (nome, cognome, stipendio, reparto)
+VALUES ('Mario', 'Rossi', 50000.00, 'Amministrazione'),
+       ('Anna', 'Verdi', 60000.00, 'Vendite'),
+       ('Giuseppe', 'Bianchi', 70000.00, 'Management');
+
+      insert into progetti (nome)
+      VALUES ('Progetto grandissimo'),
+       ('Progettino piccolo');
+      
+      
+      
+insert into develhopedudatest.progettididipendenti (ID_Dipendenti, ID_Progetti) values (2,1),(3,1),(2,2),(1,1);
+select * from progettididipendenti;
+
+
+select
+	Dipendenti.ID_Dipendenti ,
+	Dipendenti.Nome ,
+	progetti.nome 
+from
+progettididipendenti
+inner join dipendenti  on	progettididipendenti.ID_Dipendenti = dipendenti.ID_Dipendenti 
+left join progetti on progettididipendenti.ID_Progetti  = progetti.ID_Progetti ;
